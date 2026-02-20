@@ -105,10 +105,10 @@ export default function ArtworkTable() {
           onClick={() => setShowDialog(true)}
         />
 
-        <div >
-          <strong style={{
+        <div style={{
           color : "black",
-        }}>Selected Rows:</strong> {selectedIds.size}
+        }}>
+          <strong >Selected Rows:</strong> {selectedIds.size}
         </div>
       </div>
 
