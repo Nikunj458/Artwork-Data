@@ -4,10 +4,10 @@ import { Column } from "primereact/column"
 import { Dialog } from "primereact/dialog"
 import { Button } from "primereact/button"
 import { InputText } from "primereact/inputtext"
-import "primeicons/primeicons.css";
-import "primereact/resources/themes/lara-light-blue/theme.css";
-import "primereact/resources/primereact.min.css";
-import "primeicons/primeicons.css";
+import "primeicons/primeicons.css"
+import "primereact/resources/themes/lara-light-blue/theme.css"
+import "primereact/resources/primereact.min.css"
+
 interface Artwork {
   id: number
   title: string
@@ -43,7 +43,7 @@ export default function ArtworkTable() {
       setLoading(true)
 
       const response = await fetch(
-        `https://api.artic.edu/api/v1/artworks?page=${pageNumber}`
+        `https://api.artic.edu/api/v1/artworks?page=${pageNumber}&limit=${rowsPerPage}`
       )
 
       const json: ApiResponse = await response.json()
@@ -74,7 +74,11 @@ export default function ArtworkTable() {
 
     if (!count || count <= 0) return
 
-    const rowsToSelect = artworks.slice(0, count)
+    const rowsToSelect = artworks.slice(
+      0,
+      Math.min(count, artworks.length)
+    )
+
     const updatedIds = new Set(selectedIds)
 
     rowsToSelect.forEach((row) => {
@@ -101,8 +105,10 @@ export default function ArtworkTable() {
           onClick={() => setShowDialog(true)}
         />
 
-        <div style={{ color:"black" }}>
-          <strong>Selected Rows:</strong> {selectedIds.size}
+        <div >
+          <strong style={{
+          color : "black",
+        }}>Selected Rows:</strong> {selectedIds.size}
         </div>
       </div>
 
